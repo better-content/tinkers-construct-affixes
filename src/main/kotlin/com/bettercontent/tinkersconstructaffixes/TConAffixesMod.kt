@@ -18,7 +18,6 @@ class TConAffixesMod {
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, TConAffixConfig.SPEC)
         MinecraftForge.EVENT_BUS.register(TConAffixRewards)
         MinecraftForge.EVENT_BUS.register(GlobalAffixLoot)
-        MinecraftForge.EVENT_BUS.register(EpicFightMovesetMigration)
         MinecraftForge.EVENT_BUS.register(TConAffixValidation)
     }
 
