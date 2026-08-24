@@ -5,19 +5,28 @@ import java.io.InputStreamReader
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import kotlin.math.cbrt
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class MaterialSalienceTest {
     @Test
-    fun bitmapFontReferencesPackagedTexture() {
-        val resource = requireNotNull(javaClass.getResourceAsStream(
-            "/assets/tinkers_construct_affixes/font/salience.json"
-        ))
-        val root = InputStreamReader(resource).use { JsonParser.parseReader(it).asJsonObject }
-        val textureId = root.getAsJsonArray("providers")[0].asJsonObject.get("file").asString
-        val (namespace, path) = textureId.split(':', limit = 2)
+    fun sharedGlyphContractUsesPortableVanillaCharacters() {
+        assertEquals(listOf("✦", "»", "⚒", "➜", "∞", "◆", "✚", "⊕"), SalienceAspect.entries.map { it.glyph })
+    }
 
-        javaClass.getResourceAsStream("/assets/$namespace/textures/$path").use { texture ->
-            requireNotNull(texture) { "Bitmap font texture $textureId is not packaged under textures/" }
+    @Test
+    fun paletteMaintainsWorstCaseOklabDistanceAcrossDichromacyModels() {
+        val models = listOf(
+            arrayOf(doubleArrayOf(1.0, 0.0, 0.0), doubleArrayOf(0.0, 1.0, 0.0), doubleArrayOf(0.0, 0.0, 1.0)),
+            arrayOf(doubleArrayOf(.152286, 1.052583, -.204868), doubleArrayOf(.114503, .786281, .099216), doubleArrayOf(-.003882, -.048116, 1.051998)),
+            arrayOf(doubleArrayOf(.367322, .860646, -.227968), doubleArrayOf(.280085, .672501, .047413), doubleArrayOf(-.011820, .042940, .968881)),
+            arrayOf(doubleArrayOf(1.255528, -.076749, -.178779), doubleArrayOf(-.078411, .930809, .147602), doubleArrayOf(.004733, .691367, .303900))
+        )
+        models.forEachIndexed { modelIndex, model ->
+            val labs = SalienceAspect.entries.map { oklab(simulate(linearRgb(it.color), model)) }
+            val minimum = labs.indices.flatMap { i -> (0 until i).map { j -> distance(labs[i], labs[j]) } }.min()
+            assertTrue(minimum >= 0.10, "vision model $modelIndex has minimum OKLab distance $minimum")
         }
     }
 
@@ -47,6 +56,9 @@ class MaterialSalienceTest {
             "/data/tinkers_construct_affixes/systemic_salience/material_profiles.json"
         ))
         val root = InputStreamReader(resource).use { JsonParser.parseReader(it).asJsonObject }
+        val scope = root.getAsJsonObject("scope")
+        assertEquals("pack_authored_materials_only", scope.get("policy").asString)
+        assertEquals(TConAffixesMod.MOD_ID, scope.get("namespace").asString)
         val aspects = root.getAsJsonArray("aspects").associate { element ->
             val aspect = element.asJsonObject
             aspect.get("id").asString to aspect
@@ -54,11 +66,16 @@ class MaterialSalienceTest {
         SalienceAspect.entries.forEach { aspect ->
             val metadata = requireNotNull(aspects[aspect.id])
             assertEquals(aspect.color, metadata.get("color").asString.removePrefix("#").toInt(16))
-            assertEquals(aspect.glyph.single().code, metadata.get("codepoint").asString.toInt(16))
+            assertEquals(aspect.glyph, metadata.get("glyph").asString)
         }
 
         val materials = root.getAsJsonObject("materials")
         assertEquals(MaterialSalience.profiles.keys, materials.keySet())
+        val evidence = root.getAsJsonObject("evidence")
+        assertEquals(MaterialSalience.profiles.keys, evidence.keySet())
+        evidence.entrySet().forEach { (id, value) ->
+            assertTrue(value.asString.length >= 32, "$id lacks behavioral evidence")
+        }
         MaterialSalience.profiles.forEach { (id, profile) ->
             val encoded = materials.getAsJsonObject(id)
             assertEquals(
@@ -125,4 +142,24 @@ class MaterialSalienceTest {
     private fun resourceJson(path: String) = InputStreamReader(requireNotNull(javaClass.getResourceAsStream(path))).use {
         JsonParser.parseReader(it).asJsonObject
     }
+
+    private fun linearRgb(color: Int): DoubleArray = doubleArrayOf(
+        (color shr 16 and 255).toDouble(), (color shr 8 and 255).toDouble(), (color and 255).toDouble()
+    )
+        .map { it / 255.0 }.map { if (it <= .04045) it / 12.92 else ((it + .055) / 1.055).pow(2.4) }.toDoubleArray()
+
+    private fun simulate(rgb: DoubleArray, matrix: Array<DoubleArray>): DoubleArray = DoubleArray(3) { row ->
+        matrix[row].indices.sumOf { column -> matrix[row][column] * rgb[column] }.coerceIn(0.0, 1.0)
+    }
+
+    private fun oklab(rgb: DoubleArray): DoubleArray {
+        val l = cbrt(.4122214708 * rgb[0] + .5363325363 * rgb[1] + .0514459929 * rgb[2])
+        val m = cbrt(.2119034982 * rgb[0] + .6806995451 * rgb[1] + .1073969566 * rgb[2])
+        val s = cbrt(.0883024619 * rgb[0] + .2817188376 * rgb[1] + .6299787005 * rgb[2])
+        return doubleArrayOf(.2104542553 * l + .793617785 * m - .0040720468 * s,
+            1.9779984951 * l - 2.428592205 * m + .4505937099 * s,
+            .0259040371 * l + .7827717662 * m - .808675766 * s)
+    }
+
+    private fun distance(first: DoubleArray, second: DoubleArray): Double = sqrt(first.indices.sumOf { (first[it] - second[it]).pow(2) })
 }

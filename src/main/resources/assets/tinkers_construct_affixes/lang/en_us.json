@@ -14,7 +14,7 @@
   "tooltip.tinkers_construct_affixes.currency.mutate": "Irreversibly improves or destroys the part.",
   "tooltip.tinkers_construct_affixes.currency.use": "Right-click to select; left-click a part. Hold Shift to repeat.",
   "tooltip.tinkers_construct_affixes.salvage_hint": "Shift-right-click in an inventory to strip and salvage.",
-  "tooltip.tinkers_construct_affixes.material_profile": "Material profile",
+  "tooltip.tinkers_construct_affixes.material_profile": "Pack-authored material profile",
   "message.tinkers_construct_affixes.armed": "%s selected",
   "message.tinkers_construct_affixes.targeting": "Choose a Tinkers part · Shift repeats",
   "message.tinkers_construct_affixes.cache_unavailable": "No compatible affixed part is available for this Font and material configuration.",

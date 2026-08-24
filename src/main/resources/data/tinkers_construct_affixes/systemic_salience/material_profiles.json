@@ -1,14 +1,19 @@
 {
   "schema": 1,
+  "scope": {
+    "policy": "pack_authored_materials_only",
+    "namespace": "tinkers_construct_affixes",
+    "external_materials": "retain native TCon stats and tooltips; no inferred affinity is claimed"
+  },
   "aspects": [
-    {"id": "impact", "color": "#D94B4B", "glyph": "burst", "codepoint": "E200"},
-    {"id": "tempo", "color": "#F28E2B", "glyph": "chevrons", "codepoint": "E201"},
-    {"id": "work", "color": "#C5A529", "glyph": "hammer", "codepoint": "E202"},
-    {"id": "mobility", "color": "#62A744", "glyph": "stride", "codepoint": "E203"},
-    {"id": "endurance", "color": "#168F96", "glyph": "loop", "codepoint": "E204"},
-    {"id": "robustness", "color": "#496CC3", "glyph": "shield", "codepoint": "E205"},
-    {"id": "renewal", "color": "#24966A", "glyph": "sprout", "codepoint": "E206"},
-    {"id": "control", "color": "#9B58B5", "glyph": "crosshair", "codepoint": "E207"}
+    {"id": "impact", "color": "#E4717D", "glyph": "✦"},
+    {"id": "tempo", "color": "#AA652B", "glyph": "»"},
+    {"id": "work", "color": "#CAA903", "glyph": "⚒"},
+    {"id": "mobility", "color": "#C0E304", "glyph": "➜"},
+    {"id": "endurance", "color": "#35BBD0", "glyph": "∞"},
+    {"id": "robustness", "color": "#1175FC", "glyph": "◆"},
+    {"id": "renewal", "color": "#6FEDBA", "glyph": "✚"},
+    {"id": "control", "color": "#8A6CB2", "glyph": "⊕"}
   ],
   "materials": {
     "ambrosium": {"renewal": 3, "endurance": 1, "impact": -1},
@@ -26,5 +31,22 @@
     "utherium": {"work": 3, "tempo": 1, "endurance": -1},
     "warden_carapace": {"robustness": 3, "impact": 2, "mobility": -2},
     "zanite": {"control": 2, "work": 1, "endurance": -1}
+  },
+  "evidence": {
+    "ambrosium": "solar_powered trait restores performance in light; ranged-only construction supplies no forceful head",
+    "cloggrum": "solid trait, armor support, positive durability, and deliberately slower handling",
+    "echo_wood": "woodwind trait, +accuracy and +speed, paired with low durability",
+    "forgotten": "severing trait, 3.3 head attack, netherite-tier durability, and slower handling",
+    "froststeel": "freezing trait, armor toughness, positive accuracy, and slower handling",
+    "gravitite": "knockback trait, 3.2 head attack, mobility fantasy, and explicit accuracy penalty",
+    "holystone": "stoneshield trait, mining-speed support, and slower handling",
+    "regalium": "preserved trait supplies conservation and deliberate handling rather than raw protection",
+    "reinforced_echo": "reinforced trait supplies strong durability/conservation at a cadence cost",
+    "resonarium": "attractive trait, +melee speed, +draw speed, +accuracy, and reduced durability",
+    "sculk_bone": "necrotic trait supplies renewal, melee support, and reduced durability",
+    "skyroot": "lightweight trait, +melee/draw/mining speed, mobility fantasy, and low durability",
+    "utherium": "dwarven trait, +mining speed, +handling speed, and no conservation bonus",
+    "warden_carapace": "stalwart trait, top durability/toughness/knockback resistance, and slower handling",
+    "zanite": "invariant trait, +accuracy and +mining speed, with no resource-conservation behavior"
   }
 }

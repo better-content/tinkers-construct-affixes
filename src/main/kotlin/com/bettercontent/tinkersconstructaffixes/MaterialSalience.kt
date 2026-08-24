@@ -3,8 +3,6 @@ package com.bettercontent.tinkersconstructaffixes
 import net.minecraft.ChatFormatting
 import net.minecraft.nbt.Tag
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.Style
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 import slimeknights.tconstruct.library.tools.part.ToolPartItem
 import kotlin.math.absoluteValue
@@ -15,14 +13,14 @@ internal enum class SalienceAspect(
     val color: Int,
     val glyph: String
 ) {
-    IMPACT("impact", "Impact", 0xD94B4B, "\uE200"),
-    TEMPO("tempo", "Tempo", 0xF28E2B, "\uE201"),
-    WORK("work", "Work", 0xC5A529, "\uE202"),
-    MOBILITY("mobility", "Mobility", 0x62A744, "\uE203"),
-    ENDURANCE("endurance", "Endurance", 0x168F96, "\uE204"),
-    ROBUSTNESS("robustness", "Robustness", 0x496CC3, "\uE205"),
-    RENEWAL("renewal", "Renewal", 0x24966A, "\uE206"),
-    CONTROL("control", "Control", 0x9B58B5, "\uE207")
+    IMPACT("impact", "Impact", 0xE4717D, "✦"),
+    TEMPO("tempo", "Tempo", 0xAA652B, "»"),
+    WORK("work", "Work", 0xCAA903, "⚒"),
+    MOBILITY("mobility", "Mobility", 0xC0E304, "➜"),
+    ENDURANCE("endurance", "Endurance", 0x35BBD0, "∞"),
+    ROBUSTNESS("robustness", "Robustness", 0x1175FC, "◆"),
+    RENEWAL("renewal", "Renewal", 0x6FEDBA, "✚"),
+    CONTROL("control", "Control", 0x8A6CB2, "⊕")
 }
 
 internal data class SalienceRating(val aspect: SalienceAspect, val value: Int) {
@@ -51,8 +49,6 @@ internal data class MaterialProfile(val materialId: String, val ratings: List<Sa
 }
 
 internal object MaterialSalience {
-    private val glyphFont = ResourceLocation(TConAffixesMod.MOD_ID, "salience")
-
     internal val profiles: Map<String, MaterialProfile> = listOf(
         profile("ambrosium", SalienceAspect.RENEWAL to 3, SalienceAspect.ENDURANCE to 1, SalienceAspect.IMPACT to -1),
         profile("cloggrum", SalienceAspect.ROBUSTNESS to 2, SalienceAspect.IMPACT to 1, SalienceAspect.TEMPO to -1),
@@ -90,12 +86,12 @@ internal object MaterialSalience {
                 if (index > 0) line.append(Component.literal("  ").withStyle(ChatFormatting.DARK_GRAY))
                 line.append(
                     Component.literal(rating.aspect.glyph)
-                        .withStyle(Style.EMPTY.withFont(glyphFont).withColor(rating.aspect.color))
+                        .withStyle { style -> style.withColor(rating.aspect.color) }
                 )
                 val sign = if (rating.value > 0) "+" else "−"
                 line.append(
                     Component.literal("$sign${rating.value.absoluteValue} ${rating.aspect.displayName}")
-                        .withStyle(Style.EMPTY.withColor(rating.aspect.color))
+                        .withStyle { style -> style.withColor(rating.aspect.color) }
                 )
             }
             tooltip += line
