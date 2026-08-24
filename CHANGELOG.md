@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+### Added
+
+- Added signed Systemic Salience profiles, palette metadata, eight dedicated glyphs, and compact material-profile tooltips for all fifteen owned Tinkers materials.
+- Added native defining traits for every owned material and executable profile, traversal, inert-pool, and damage-ceiling contracts.
+
+### Changed
+
+- Focused Froststeel on cold defense, Gravitite on forceful displacement with an accuracy weakness, and Skyroot on fragile speed.
+- Differentiated the formerly blank Ambrosium, Regalium, and Reinforced Echo material definitions.
+- Removed inert Blood, Clay, and Honey parts and player hover, teleport, low-gravity, bounce, and extra-jump routes from affix reward pools.
+- Replaced traversal affixes with Straight Shot, Windward Guard, Grounded Guard, and grounded knockback resistance.
+
 ### Fixed
 
 - Made Affixed Part Caches select only part profiles and weighted material tiers that can produce a valid Tinkers part in the current physical origin.

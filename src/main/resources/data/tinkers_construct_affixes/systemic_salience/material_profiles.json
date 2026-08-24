@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "aspects": [
+    {"id": "impact", "color": "#D94B4B", "glyph": "burst", "codepoint": "E200"},
+    {"id": "tempo", "color": "#F28E2B", "glyph": "chevrons", "codepoint": "E201"},
+    {"id": "work", "color": "#C5A529", "glyph": "hammer", "codepoint": "E202"},
+    {"id": "mobility", "color": "#62A744", "glyph": "stride", "codepoint": "E203"},
+    {"id": "endurance", "color": "#168F96", "glyph": "loop", "codepoint": "E204"},
+    {"id": "robustness", "color": "#496CC3", "glyph": "shield", "codepoint": "E205"},
+    {"id": "renewal", "color": "#24966A", "glyph": "sprout", "codepoint": "E206"},
+    {"id": "control", "color": "#9B58B5", "glyph": "crosshair", "codepoint": "E207"}
+  ],
+  "materials": {
+    "ambrosium": {"renewal": 3, "endurance": 1, "impact": -1},
+    "cloggrum": {"robustness": 2, "impact": 1, "tempo": -1},
+    "echo_wood": {"control": 2, "tempo": 1, "robustness": -2},
+    "forgotten": {"impact": 3, "robustness": 2, "tempo": -2},
+    "froststeel": {"robustness": 3, "control": 1, "mobility": -1},
+    "gravitite": {"impact": 3, "mobility": 1, "control": -1},
+    "holystone": {"work": 2, "robustness": 1, "tempo": -1},
+    "regalium": {"endurance": 2, "control": 1, "robustness": -1},
+    "reinforced_echo": {"robustness": 3, "endurance": 1, "tempo": -2},
+    "resonarium": {"tempo": 3, "control": 2, "robustness": -2},
+    "sculk_bone": {"renewal": 2, "impact": 1, "endurance": -1},
+    "skyroot": {"tempo": 2, "mobility": 1, "robustness": -1},
+    "utherium": {"work": 3, "tempo": 1, "endurance": -1},
+    "warden_carapace": {"robustness": 3, "impact": 2, "mobility": -2},
+    "zanite": {"control": 2, "work": 1, "endurance": -1}
+  }
+}

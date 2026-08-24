@@ -16,6 +16,14 @@ Six currencies support an inventory-native crafting loop:
 
 Master toolsmiths sell the two preservation seals. Fluxes, seals, caches, and affixed parts also enter the global combat and chest-loot economy at deliberately low rates.
 
+## Material salience
+
+This repository owns behavioural profiles for its fifteen Aether, Undergarden, and Otherside materials. Profiles use the shared signed `-3..3` vocabulary of Impact, Tempo, Work, Mobility, Endurance, Robustness, Renewal, and Control. Tooltips compress each profile to its two strongest affinities and strongest weakness, using a dedicated colour and 16×16 glyph for each concept. The complete machine-readable contract is in `data/tinkers_construct_affixes/systemic_salience/material_profiles.json`.
+
+The profile is descriptive, not a global stat pool: Tinkers remains the causal authority. Each owned material has a native Tinkers trait and its normal part statistics. In particular, Froststeel is a cold defensive material, Gravitite is forceful displacement with an accuracy cost, Skyroot is quick but fragile, and Ambrosium, Regalium, and Reinforced Echo no longer share blank behaviour.
+
+Affix rewards deliberately exclude inert material definitions and materials or modifier grants that teleport the player, hover, reduce gravity, add jumps, or otherwise bypass traversal. Grounded guard, target displacement, projectile, and status behaviours remain valid.
+
 Server worlds may tune hostile and Font drop rates, currency and cache rates, tier weights, and material allowlists in `tinkers_construct_affixes-server.toml`. Global defaults are 1% hostile part/currency drops, 3% chest cache/currency rolls, and material-tier weights of 80% / 17% / 2.9% / 0.1%. Font hostile drops use 3% part and 4% currency rates.
 
 ## Build
