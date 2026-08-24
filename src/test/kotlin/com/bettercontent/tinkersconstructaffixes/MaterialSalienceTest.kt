@@ -8,6 +8,20 @@ import kotlin.test.assertTrue
 
 class MaterialSalienceTest {
     @Test
+    fun bitmapFontReferencesPackagedTexture() {
+        val resource = requireNotNull(javaClass.getResourceAsStream(
+            "/assets/tinkers_construct_affixes/font/salience.json"
+        ))
+        val root = InputStreamReader(resource).use { JsonParser.parseReader(it).asJsonObject }
+        val textureId = root.getAsJsonArray("providers")[0].asJsonObject.get("file").asString
+        val (namespace, path) = textureId.split(':', limit = 2)
+
+        javaClass.getResourceAsStream("/assets/$namespace/textures/$path").use { texture ->
+            requireNotNull(texture) { "Bitmap font texture $textureId is not packaged under textures/" }
+        }
+    }
+
+    @Test
     fun ownedProfilesAreSignedDistinctAndCompressed() {
         assertEquals(15, MaterialSalience.profiles.size)
         assertEquals(
