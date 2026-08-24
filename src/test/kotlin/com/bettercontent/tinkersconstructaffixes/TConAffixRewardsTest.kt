@@ -187,6 +187,14 @@ class TConAffixRewardsTest {
     }
 
     @Test
+    fun attackSpeedAffixesUseDynamicAttributeDeltasInsteadOfPersistedToolStats() {
+        assertEquals(0.0, AffixAttackSpeed.attributeBonus(2.4, 1.0f), 0.00001)
+        assertEquals(0.6, AffixAttackSpeed.attributeBonus(2.4, 1.25f), 0.00001)
+        assertEquals(-0.6, AffixAttackSpeed.attributeBonus(2.4, 0.75f), 0.00001)
+        assertEquals(0.0, AffixAttackSpeed.attributeBonus(2.4, 0.0f), 0.00001)
+    }
+
+    @Test
     fun modifierOwnershipPreservesOrdinaryLevelsAndRepairsStaleLedgers() {
         assertEquals(1, TConAffixRewards.ownedLevelDelta(2, 1, 2))
         assertEquals(-1, TConAffixRewards.ownedLevelDelta(3, 1, 0))
