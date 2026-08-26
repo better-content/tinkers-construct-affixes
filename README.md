@@ -43,6 +43,6 @@ The deployable reobfuscated JAR is written to `build/libs/tinkers-construct-affi
 - Repository and release artifact: `tinkers-construct-affixes`
 - Mod ID and resource namespace: `tinkers_construct_affixes`
 - Java package: `com.bettercontent.tinkersconstructaffixes`
-- Validation: `./gradlew build`
+- Validation: `./gradlew verifyFull` (JVM checks plus headless Forge GameTests)
 
 This normalization is a clean break. Worlds, configuration files, and integrations created for earlier identities are not migrated or aliased.

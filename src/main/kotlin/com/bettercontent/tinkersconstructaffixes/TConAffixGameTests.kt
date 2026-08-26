@@ -7,9 +7,6 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.util.RandomSource
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.item.ItemStack
-import net.minecraftforge.event.RegisterGameTestsEvent
-import net.minecraftforge.eventbus.api.SubscribeEvent
-import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.gametest.GameTestHolder
 import net.minecraftforge.gametest.PrefixGameTestTemplate
 import slimeknights.tconstruct.library.materials.definition.IMaterial
@@ -24,14 +21,7 @@ import java.util.UUID
 
 @GameTestHolder(TConAffixesMod.MOD_ID)
 @PrefixGameTestTemplate(false)
-@Mod.EventBusSubscriber(modid = TConAffixesMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 object TConAffixGameTests {
-    @SubscribeEvent
-    @JvmStatic
-    fun register(event: RegisterGameTestsEvent) {
-        event.register(TConAffixGameTests::class.java)
-    }
-
     @GameTest(templateNamespace = "minecraft", template = "empty", timeoutTicks = 40)
     @JvmStatic
     fun cacheUseProducesOneStampedPartAndConsumesOneCache(helper: GameTestHelper) {
