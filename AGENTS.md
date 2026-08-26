@@ -10,7 +10,7 @@
 
 ## Validation
 
-- Run `./gradlew build` before committing or pushing.
+- Run `./gradlew verifyFull` before committing or pushing.
 - Keep generated Gradle, build, run, log, and IDE output untracked.
 
 ## Commit discipline

@@ -1,6 +1,7 @@
 package com.bettercontent.tinkersconstructaffixes
 
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.event.RegisterGameTestsEvent
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig
@@ -15,10 +16,15 @@ class TConAffixesMod {
         AffixNetwork.register()
         modBus.addListener(TConAffixValidation::onConfigLoading)
         modBus.addListener(TConAffixValidation::onConfigReloading)
+        modBus.addListener(::registerGameTests)
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, TConAffixConfig.SPEC)
         MinecraftForge.EVENT_BUS.register(TConAffixRewards)
         MinecraftForge.EVENT_BUS.register(GlobalAffixLoot)
         MinecraftForge.EVENT_BUS.register(TConAffixValidation)
+    }
+
+    private fun registerGameTests(event: RegisterGameTestsEvent) {
+        event.register(TConAffixGameTests::class.java)
     }
 
     companion object {

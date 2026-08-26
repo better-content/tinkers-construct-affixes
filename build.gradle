@@ -21,3 +21,28 @@ dependencies {
     runtimeOnly fg.deobf(mantleDep)
     runtimeOnly fg.deobf(tconstructDep)
 }
+
+tasks.register('verifyFast') {
+    group = 'verification'
+    description = 'Runs the deterministic JVM verification lane.'
+    dependsOn tasks.named('check')
+}
+
+tasks.register('verifyFull') {
+    group = 'verification'
+    description = 'Runs JVM verification and the headless Forge GameTests.'
+    dependsOn tasks.named('verifyFast')
+    dependsOn tasks.named('headlessGameTest')
+}
+
+tasks.named('headlessGameTest').configure {
+    doLast {
+        def gameTestSource = file('src/main/kotlin/com/bettercontent/tinkersconstructaffixes/TConAffixGameTests.kt')
+        def expectedTests = gameTestSource.readLines().count { it.contains('@GameTest(') }
+        def gameTestLog = file('run-gametest/logs/latest.log')
+        def successMarker = "All ${expectedTests} required tests passed"
+        if (expectedTests == 0 || !gameTestLog.isFile() || !gameTestLog.text.contains(successMarker)) {
+            throw new GradleException("Forge GameTest verification did not report '${successMarker}'")
+        }
+    }
+}
