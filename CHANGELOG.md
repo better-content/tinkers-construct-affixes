@@ -4,8 +4,7 @@
 
 ### Added
 
-- Added signed Systemic Salience profiles, palette metadata, eight dedicated glyphs, and compact material-profile tooltips for all fifteen owned Tinkers materials.
-- Added native defining traits for every owned material and executable profile, traversal, inert-pool, and damage-ceiling contracts.
+- Added native defining traits for every owned material and executable traversal, inert-pool, and damage-ceiling contracts.
 
 ### Changed
 
@@ -16,7 +15,6 @@
 
 ### Fixed
 
-- Packaged the salience bitmap strip under Minecraft's required `textures/font` resource path.
 - Made Affixed Part Caches select only part profiles and weighted material tiers that can produce a valid Tinkers part in the current physical origin.
 - Kept failed cache openings non-destructive and added player-facing feedback for genuinely invalid material configurations.
 - Expanded startup diagnostics to identify malformed, missing, hidden, incorrectly tiered, incompatible, and zero-weight reward pools.

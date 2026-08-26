@@ -377,7 +377,6 @@ object TConAffixRewards {
 
     @SubscribeEvent
     fun onTooltip(event: ItemTooltipEvent) {
-        MaterialSalience.appendTooltip(event.itemStack, event.toolTip)
         val affixes = existingToolAffixes(event.itemStack)
         if (affixes.isEmpty()) return
         event.toolTip += Component.translatable("tooltip.tinkers_construct_affixes.affixes").withStyle(ChatFormatting.DARK_RED)

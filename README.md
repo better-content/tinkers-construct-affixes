@@ -16,13 +16,9 @@ Six currencies support an inventory-native crafting loop:
 
 Master toolsmiths sell the two preservation seals. Fluxes, seals, caches, and affixed parts also enter the global combat and chest-loot economy at deliberately low rates.
 
-## Material salience
+## Material behavior
 
-This repository owns behavioural profiles for its fifteen Aether, Undergarden, and Otherside materials. Profiles use the shared signed `-3..3` vocabulary of Impact, Tempo, Work, Mobility, Endurance, Robustness, Renewal, and Control. Tooltips compress each profile to its two strongest affinities and strongest weakness, using a shared colour and portable text glyph for each concept. The complete machine-readable contract is in `data/tinkers_construct_affixes/systemic_salience/material_profiles.json`.
-
-That contract is deliberately scoped to pack-authored materials. Third-party TConstruct materials retain their native exact statistics and tooltips; this mod does not guess affinities for behavior it does not own. The shared palette is sRGB-gamut constrained and regression-tested for a minimum OKLab distance of 0.10 under normal vision and full-strength protan, deutan, and tritan simulations. Glyphs and names accompany every color.
-
-The profile is descriptive, not a global stat pool: Tinkers remains the causal authority. Each owned material has a native Tinkers trait and its normal part statistics. In particular, Froststeel is a cold defensive material, Gravitite is forceful displacement with an accuracy cost, Skyroot is quick but fragile, and Ambrosium, Regalium, and Reinforced Echo no longer share blank behaviour.
+Tinkers remains the sole causal authority for material behavior. Each owned material has native part statistics and defining traits; this repository does not assign Systemic Salience aspects or profile tooltips to materials. In particular, Froststeel is a cold defensive material, Gravitite is forceful displacement with an accuracy cost, Skyroot is quick but fragile, and Ambrosium, Regalium, and Reinforced Echo no longer share blank behaviour.
 
 Affix rewards deliberately exclude inert material definitions and materials or modifier grants that teleport the player, hover, reduce gravity, add jumps, or otherwise bypass traversal. Grounded guard, target displacement, projectile, and status behaviours remain valid.
 
