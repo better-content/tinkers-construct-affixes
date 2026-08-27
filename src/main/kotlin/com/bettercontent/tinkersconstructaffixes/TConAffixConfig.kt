@@ -9,19 +9,24 @@ object TConAffixConfig {
     private const val DEFAULT_FONT_CURRENCY_CHANCE = 0.04
     private const val DEFAULT_CHEST_CACHE_CHANCE = 0.03
     private const val DEFAULT_CHEST_CURRENCY_CHANCE = 0.03
+    private val BLOCKED_MATERIALS = setOf(
+        "tconstruct:blood", "tconstruct:clay", "tconstruct:honey",
+        "tconstruct:end_rod", "tconstruct:ender_pearl", "tconstruct:enderslime_vine",
+        "tconstruct:skyslime_vine"
+    )
     private val DEFAULT_TIER_WEIGHTS = listOf(8000, 1700, 290, 10)
     private val DEFAULT_TIER_1_MATERIALS = listOf(
-        "tconstruct:bamboo", "tconstruct:bone", "tconstruct:cactus", "tconstruct:chorus", "tconstruct:clay",
-        "tconstruct:copper", "tconstruct:feather", "tconstruct:flint", "tconstruct:honey", "tconstruct:leather",
+        "tconstruct:bamboo", "tconstruct:bone", "tconstruct:cactus", "tconstruct:chorus",
+        "tconstruct:copper", "tconstruct:feather", "tconstruct:flint", "tconstruct:leather",
         "tconstruct:leaves", "tconstruct:paper", "tconstruct:phantom", "tconstruct:rock", "tconstruct:string",
         "tconstruct:vine", "tconstruct:wood", "tconstruct:wool"
     )
     private val DEFAULT_TIER_2_MATERIALS = listOf(
-        "tconstruct:aluminum", "tconstruct:amethyst", "tconstruct:blaze", "tconstruct:blood", "tconstruct:earthslime",
-        "tconstruct:ender_pearl", "tconstruct:glass", "tconstruct:gold", "tconstruct:gunpowder", "tconstruct:iron",
+        "tconstruct:aluminum", "tconstruct:amethyst", "tconstruct:blaze", "tconstruct:earthslime",
+        "tconstruct:glass", "tconstruct:gold", "tconstruct:gunpowder", "tconstruct:iron",
         "tconstruct:ironwood", "tconstruct:lead", "tconstruct:necrotic_bone", "tconstruct:osmium", "tconstruct:prismarine",
         "tconstruct:scorched_stone", "tconstruct:seared_stone", "tconstruct:silver", "tconstruct:skyslime",
-        "tconstruct:skyslime_vine", "tconstruct:slimeball", "tconstruct:slimeskin", "tconstruct:slimewood",
+        "tconstruct:slimeball", "tconstruct:slimeskin", "tconstruct:slimewood",
         "tconstruct:twisting_vine", "tconstruct:venombone", "tconstruct:weeping_vine", "tconstruct:whitestone"
     )
     private val DEFAULT_TIER_3_MATERIALS = listOf(
@@ -34,7 +39,7 @@ object TConAffixConfig {
     )
     private val DEFAULT_TIER_4_MATERIALS = listOf(
         "tconstruct:ancient_hide", "tconstruct:blazewood", "tconstruct:blazing_bone", "tconstruct:cinderslime",
-        "tconstruct:dragon_scale", "tconstruct:end_rod", "tconstruct:enderslime", "tconstruct:enderslime_vine",
+        "tconstruct:dragon_scale", "tconstruct:enderslime",
         "tconstruct:fiery", "tconstruct:hepatizon", "tconstruct:knightly", "tconstruct:knightmetal",
         "tconstruct:manyullyn", "tconstruct:queens_slime", "tconstruct:shulker"
     )
@@ -86,13 +91,20 @@ object TConAffixConfig {
         List(4) { index -> weights.getOrElse(index) { 0 } }
     }
 
-    fun materialsForTier(tier: Int): List<String> = when (tier) {
+    fun materialsForTier(tier: Int): List<String> = sanitizeMaterialIds(when (tier) {
         1 -> safeGet(tier1Materials, DEFAULT_TIER_1_MATERIALS)
         2 -> safeGet(tier2Materials, DEFAULT_TIER_2_MATERIALS)
         3 -> safeGet(tier3Materials, DEFAULT_TIER_3_MATERIALS)
         4 -> safeGet(tier4Materials, DEFAULT_TIER_4_MATERIALS)
         else -> emptyList()
-    }
+    })
+
+    internal fun defaultMaterialIds(): Set<String> = (
+        DEFAULT_TIER_1_MATERIALS + DEFAULT_TIER_2_MATERIALS + DEFAULT_TIER_3_MATERIALS + DEFAULT_TIER_4_MATERIALS
+    ).toSet()
+
+    internal fun sanitizeMaterialIds(materials: List<String>): List<String> =
+        materials.filterNot(BLOCKED_MATERIALS::contains)
 
     private fun materialList(name: String, defaults: List<String>): ForgeConfigSpec.ConfigValue<List<out String>> {
         return builder.comment("Allowed material IDs for tier ${name.removePrefix("tier").removeSuffix("Materials")}.")

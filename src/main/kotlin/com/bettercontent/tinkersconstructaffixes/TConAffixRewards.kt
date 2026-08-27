@@ -179,7 +179,7 @@ object TConAffixRewards {
         affix("delvers_cut", "Delver's Cut", AffixKind.PREFIX, "mining", 125, setOf(PartFamily.TOOL_HEAD, PartFamily.BINDING), commonTiers, "tconstruct:mining_speed"),
         affix("patient_core", "Patient Core", AffixKind.PREFIX, "durability", 145, allFamilies, commonTiers, "tconstruct:durability"),
         affix("drawn_pulse", "Drawn Pulse", AffixKind.PREFIX, "draw", 110, setOf(PartFamily.BOW, PartFamily.HANDLE), speedTiers, "tconstruct:draw_speed"),
-        affix("true_flight", "True Flight", AffixKind.PREFIX, "projectile", 105, rangedFamilies + PartFamily.HANDLE, commonTiers, "tconstruct:projectile_damage"),
+        affix("straight_shot", "Straight Shot", AffixKind.PREFIX, "projectile", 105, rangedFamilies + PartFamily.HANDLE, commonTiers, "tconstruct:projectile_damage"),
         affix("laminated_guard", "Laminated Guard", AffixKind.PREFIX, "armor", 130, setOf(PartFamily.ARMOR, PartFamily.BINDING, PartFamily.SHIELD), defenseTiers, "tconstruct:armor"),
         affix("tempered_marrow", "Tempered Marrow", AffixKind.PREFIX, "toughness", 95, setOf(PartFamily.ARMOR, PartFamily.HANDLE, PartFamily.SHIELD), defenseTiers, "tconstruct:armor_toughness"),
         affix("rooted_balance", "Rooted Balance", AffixKind.PREFIX, "knockback", 75, setOf(PartFamily.ARMOR, PartFamily.HANDLE, PartFamily.BINDING, PartFamily.SHIELD), defenseTiers, "tconstruct:knockback_resistance"),
@@ -291,8 +291,8 @@ object TConAffixRewards {
         affix("left_hand_lesson", "Left-Hand Lesson", AffixKind.PREFIX, "sinistral", 35, rangedFamilies, hybridTiers, modifier("tconstruct:sinistral")),
         affix("quarry_echo", "Quarry Echo", AffixKind.PREFIX, "momentum", 50, setOf(PartFamily.TOOL_HEAD, PartFamily.HANDLE), hybridTiers, modifier("tconstruct:momentum")),
         affix("deep_choir", "Deep Choir", AffixKind.PREFIX, "dwarven", 36, setOf(PartFamily.TOOL_HEAD), hybridTiers, modifier("tconstruct:dwarven")),
-        affix("skywake", "Skywake", AffixKind.PREFIX, "double_jump", 30, setOf(PartFamily.ARMOR), hybridTiers, modifier("tconstruct:double_jump")),
-        affix("gravebound", "Gravebound", AffixKind.PREFIX, "bouncy", 28, setOf(PartFamily.ARMOR), hybridTiers, modifier("tconstruct:bouncy")),
+        affix("windward_guard", "Windward Guard", AffixKind.PREFIX, "wind_guard", 30, setOf(PartFamily.ARMOR), defenseTiers, "tconstruct:armor_toughness"),
+        affix("grounded_guard", "Grounded Guard", AffixKind.PREFIX, "grounded_guard", 28, setOf(PartFamily.ARMOR), defenseTiers, "tconstruct:knockback_resistance"),
         affix("heelspur", "Heelspur", AffixKind.PREFIX, "soulspeed", 32, setOf(PartFamily.ARMOR), hybridTiers, modifier("tconstruct:soulspeed")),
         affix("mirror_ward", "Mirror Ward", AffixKind.PREFIX, "reflecting", 27, armorFamilies, hybridTiers, modifier("tconstruct:reflecting")),
         affix("bulwark_latch", "Bulwark Latch", AffixKind.PREFIX, "shield_strap", 40, setOf(PartFamily.SHIELD), hybridTiers, modifier("tconstruct:shield_strap")),
@@ -303,7 +303,7 @@ object TConAffixRewards {
         affix("of_split_routes", "of Split Routes", AffixKind.SUFFIX, "offhand_suffix", 31, setOf(PartFamily.HANDLE, PartFamily.BINDING), hybridTiers, modifier("tconstruct:offhanded")),
         affix("of_trophy_cables", "of Trophy Cables", AffixKind.SUFFIX, "ranged_scope_suffix", 34, rangedFamilies, hybridTiers, modifier("tconstruct:scope")),
         affix("of_the_ash_path", "of the Ash Path", AffixKind.SUFFIX, "tool_route_suffix", 29, setOf(PartFamily.TOOL_HEAD, PartFamily.BINDING), hybridTiers, modifier("tconstruct:exchanging")),
-        affix("of_held_breath", "of Held Breath", AffixKind.SUFFIX, "armor_air_suffix", 26, setOf(PartFamily.ARMOR), hybridTiers, modifier("tconstruct:double_jump")),
+        affix("of_held_breath", "of Held Breath", AffixKind.SUFFIX, "armor_air_suffix", 26, setOf(PartFamily.ARMOR), defenseTiers, "tconstruct:knockback_resistance"),
         affix("of_the_vaulted_shoulder", "of the Vaulted Shoulder", AffixKind.SUFFIX, "armor_guard_suffix", 25, armorFamilies, hybridTiers, modifier("tconstruct:reflecting"))
     )
 
@@ -332,8 +332,6 @@ object TConAffixRewards {
         "tconstruct:sinistral" to "Sinistral",
         "tconstruct:momentum" to "Momentum",
         "tconstruct:dwarven" to "Dwarven",
-        "tconstruct:double_jump" to "Double Jump",
-        "tconstruct:bouncy" to "Bouncy",
         "tconstruct:soulspeed" to "Soul Speed",
         "tconstruct:reflecting" to "Reflecting",
         "tconstruct:shield_strap" to "Shield Strap",
@@ -666,7 +664,7 @@ object TConAffixRewards {
                 "modifiable/melee", "modifiable/ranged/bows", "modifiable/fishing_rods", "modifiable/armor/worn", "modifiable/shields"
             )
             "tconstruct:scope" -> listOf("modifiable/interactable/charge")
-            "tconstruct:double_jump", "tconstruct:bouncy", "tconstruct:soulspeed" -> listOf("modifiable/armor/boots")
+            "tconstruct:soulspeed" -> listOf("modifiable/armor/boots")
             "tconstruct:reflecting" -> listOf("modifiable/shields")
             "tconstruct:shield_strap" -> listOf("modifiable/armor/leggings")
             "tconstruct:offhanded" -> listOf("modifiable/interactable/charge/modifier")

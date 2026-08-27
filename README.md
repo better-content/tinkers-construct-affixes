@@ -16,6 +16,12 @@ Six currencies support an inventory-native crafting loop:
 
 Master toolsmiths sell the two preservation seals. Fluxes, seals, caches, and affixed parts also enter the global combat and chest-loot economy at deliberately low rates.
 
+## Material behavior
+
+Tinkers remains the sole causal authority for material behavior. Each owned material has native part statistics and defining traits; this repository does not assign Systemic Salience aspects or profile tooltips to materials. In particular, Froststeel is a cold defensive material, Gravitite is forceful displacement with an accuracy cost, Skyroot is quick but fragile, and Ambrosium, Regalium, and Reinforced Echo no longer share blank behaviour.
+
+Affix rewards deliberately exclude inert material definitions and materials or modifier grants that teleport the player, hover, reduce gravity, add jumps, or otherwise bypass traversal. Grounded guard, target displacement, projectile, and status behaviours remain valid.
+
 Server worlds may tune hostile and Font drop rates, currency and cache rates, tier weights, and material allowlists in `tinkers_construct_affixes-server.toml`. Global defaults are 1% hostile part/currency drops, 3% chest cache/currency rolls, and material-tier weights of 80% / 17% / 2.9% / 0.1%. Font hostile drops use 3% part and 4% currency rates.
 
 ## Build
