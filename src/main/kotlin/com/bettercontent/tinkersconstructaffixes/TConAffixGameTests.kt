@@ -57,7 +57,7 @@ object TConAffixGameTests {
     @GameTest(templateNamespace = "minecraft", template = "empty", timeoutTicks = 80)
     @JvmStatic
     fun everyOriginProducesValidRewardsAcrossDeterministicSamples(helper: GameTestHelper) {
-        val origins = listOf(AffixOrigin.GLOBAL, AffixOrigin.NETHER, AffixOrigin.AETHER, AffixOrigin.UNDERGARDEN, AffixOrigin.OTHERSIDE)
+        val origins = listOf(AffixOrigin.GLOBAL, AffixOrigin.NETHER, AffixOrigin.AETHER)
         origins.forEachIndexed { originIndex, origin ->
             repeat(250) { sample ->
                 val reward = TConAffixRewards.rollAffixedPart(
@@ -75,7 +75,7 @@ object TConAffixGameTests {
     @GameTest(templateNamespace = "minecraft", template = "empty", timeoutTicks = 80)
     @JvmStatic
     fun everySelectableProfileHasAPositiveCompatibleMaterialTier(helper: GameTestHelper) {
-        val origins = listOf(AffixOrigin.GLOBAL, AffixOrigin.NETHER, AffixOrigin.AETHER, AffixOrigin.UNDERGARDEN, AffixOrigin.OTHERSIDE)
+        val origins = listOf(AffixOrigin.GLOBAL, AffixOrigin.NETHER, AffixOrigin.AETHER)
         origins.forEach { origin ->
             val modes = if (origin == AffixOrigin.GLOBAL) listOf(false) else listOf(false, true)
             modes.forEach { exclusive ->

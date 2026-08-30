@@ -6,25 +6,18 @@ internal enum class AffixOrigin(val id: String) {
     GLOBAL("global"),
     NETHER("nether"),
     AETHER("aether"),
-    UNDERGARDEN("undergarden"),
-    OTHERSIDE("otherside"),
     MUTATION("mutation")
 }
 
 internal object AffixOrigins {
     private val dimensions = mapOf(
         ResourceLocation.tryParse("minecraft:the_nether")!! to AffixOrigin.NETHER,
-        ResourceLocation.tryParse("aether:the_aether")!! to AffixOrigin.AETHER,
-        ResourceLocation.tryParse("undergarden:undergarden")!! to AffixOrigin.UNDERGARDEN,
-        ResourceLocation.tryParse("deeperdarker:otherside")!! to AffixOrigin.OTHERSIDE
+        ResourceLocation.tryParse("aether:the_aether")!! to AffixOrigin.AETHER
     )
 
     val exclusiveParts = mapOf(
         "tinkersweaponry:great_blade" to AffixOrigin.NETHER,
-        "tinker_rapier:slender_blade" to AffixOrigin.AETHER,
-        "additionalweaponry:defensive_handle" to AffixOrigin.UNDERGARDEN,
-        "tinkers_things:shield_plating" to AffixOrigin.UNDERGARDEN,
-        "tinkersweaponry:spear_head" to AffixOrigin.OTHERSIDE
+        "tinker_rapier:slender_blade" to AffixOrigin.AETHER
     )
 
     private val materials = buildMap {
@@ -37,28 +30,16 @@ internal object AffixOrigins {
             "tconstruct:skyslime", "tconstruct:feather", "tconstruct:phantom",
             "tconstruct:whitestone", "tconstruct:ice", "tinkers_construct_affixes:skyroot", "tinkers_construct_affixes:holystone",
             "tinkers_construct_affixes:zanite", "tinkers_construct_affixes:ambrosium", "tinkers_construct_affixes:gravitite")
-        assign(AffixOrigin.UNDERGARDEN,
-            "tconstruct:earthslime", "tconstruct:venombone", "tconstruct:ichor", "tconstruct:ichorskin",
-            "tconstruct:ancient_hide", "tconstruct:magnetite", "tinkers_construct_affixes:cloggrum", "tinkers_construct_affixes:regalium",
-            "tinkers_construct_affixes:froststeel", "tinkers_construct_affixes:utherium", "tinkers_construct_affixes:forgotten")
-        assign(AffixOrigin.OTHERSIDE,
-            "tconstruct:darkthread", "tconstruct:chorus", "tconstruct:enderslime", "tconstruct:shulker", "tconstruct:dragon_scale",
-            "tinkers_construct_affixes:echo_wood", "tinkers_construct_affixes:sculk_bone", "tinkers_construct_affixes:resonarium",
-            "tinkers_construct_affixes:reinforced_echo", "tinkers_construct_affixes:warden_carapace")
     }
 
     private val exclusiveAffixes = buildMap {
         assign(AffixOrigin.NETHER, "charward", "sundercall", "emberspite", "of_live_coals", "fontbound_assault")
         assign(AffixOrigin.AETHER, "windward_guard", "of_held_breath", "drawn_pulse", "straight_shot", "of_the_still_breath", "of_sure_arcs", "bowyers_lattice")
-        assign(AffixOrigin.UNDERGARDEN, "quarry_echo", "deep_choir", "grounded_guard", "mirror_ward", "bulwark_latch", "of_deep_cuts", "of_the_anchor", "quarrywrights_patience", "bastion_plate")
-        assign(AffixOrigin.OTHERSIDE, "gravehook", "frostwrit", "graveglass", "left_hand_lesson", "duelers_reflex", "of_the_bone_rack", "of_the_white_rime", "of_split_routes", "of_trophy_cables")
     }
 
     private val themedGlobalParts = mapOf(
         AffixOrigin.NETHER to setOf("tconstruct:small_blade", "tconstruct:broad_blade", "tconstruct:hammer_head", "tconstruct:broad_axe_head", "tconstruct:tool_handle", "tconstruct:tough_handle"),
-        AffixOrigin.AETHER to setOf("tconstruct:bow_limb", "tconstruct:bow_grip", "tconstruct:bowstring", "tconstruct:arrow_head", "tconstruct:arrow_shaft", "tconstruct:fletching", "tconstruct:boots_plating"),
-        AffixOrigin.UNDERGARDEN to setOf("tconstruct:pick_head", "tconstruct:hammer_head", "tconstruct:tool_binding", "tconstruct:tough_binding", "tconstruct:large_plate", "tconstruct:helmet_plating", "tconstruct:chestplate_plating", "tconstruct:leggings_plating", "tconstruct:boots_plating", "tconstruct:maille", "tconstruct:shield_core"),
-        AffixOrigin.OTHERSIDE to setOf("tconstruct:small_blade", "tconstruct:arrow_head", "tconstruct:arrow_shaft", "tconstruct:bow_limb", "tconstruct:bow_grip", "tconstruct:tool_handle", "tconstruct:tough_handle")
+        AffixOrigin.AETHER to setOf("tconstruct:bow_limb", "tconstruct:bow_grip", "tconstruct:bowstring", "tconstruct:arrow_head", "tconstruct:arrow_shaft", "tconstruct:fletching", "tconstruct:boots_plating")
     )
 
     fun fromDimension(dimension: ResourceLocation): AffixOrigin = dimensions[dimension] ?: AffixOrigin.GLOBAL
@@ -102,13 +83,6 @@ internal object AffixOrigins {
         AffixOrigin.AETHER to 2 -> listOf("tinkers_construct_affixes:zanite")
         AffixOrigin.AETHER to 3 -> listOf("tinkers_construct_affixes:ambrosium")
         AffixOrigin.AETHER to 4 -> listOf("tinkers_construct_affixes:gravitite")
-        AffixOrigin.UNDERGARDEN to 2 -> listOf("tinkers_construct_affixes:cloggrum", "tinkers_construct_affixes:regalium")
-        AffixOrigin.UNDERGARDEN to 3 -> listOf("tinkers_construct_affixes:froststeel", "tinkers_construct_affixes:utherium")
-        AffixOrigin.UNDERGARDEN to 4 -> listOf("tinkers_construct_affixes:forgotten")
-        AffixOrigin.OTHERSIDE to 1 -> listOf("tinkers_construct_affixes:echo_wood")
-        AffixOrigin.OTHERSIDE to 2 -> listOf("tinkers_construct_affixes:sculk_bone")
-        AffixOrigin.OTHERSIDE to 3 -> listOf("tinkers_construct_affixes:resonarium", "tinkers_construct_affixes:reinforced_echo")
-        AffixOrigin.OTHERSIDE to 4 -> listOf("tinkers_construct_affixes:warden_carapace")
         else -> emptyList()
     }
 

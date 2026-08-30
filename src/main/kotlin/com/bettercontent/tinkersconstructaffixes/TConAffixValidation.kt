@@ -35,7 +35,7 @@ object TConAffixValidation {
     private fun validateMaterials() {
         val registry = MaterialRegistry.getInstance()
         var errors = 0
-        val origins = listOf(AffixOrigin.GLOBAL, AffixOrigin.NETHER, AffixOrigin.AETHER, AffixOrigin.UNDERGARDEN, AffixOrigin.OTHERSIDE)
+        val origins = listOf(AffixOrigin.GLOBAL, AffixOrigin.NETHER, AffixOrigin.AETHER)
         origins.forEach { origin ->
             for (tier in 1..4) {
                 AffixOrigins.materialIds(origin, tier).forEach materialLoop@{ rawId ->

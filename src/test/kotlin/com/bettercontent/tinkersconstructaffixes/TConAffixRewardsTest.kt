@@ -140,9 +140,7 @@ class TConAffixRewardsTest {
     fun fontRollsGuaranteeThemedAffixesAndRespectCaps() {
         val cases = listOf(
             AffixOrigin.NETHER to TConAffixRewards.PartFamily.MELEE_HEAD,
-            AffixOrigin.AETHER to TConAffixRewards.PartFamily.BOW,
-            AffixOrigin.UNDERGARDEN to TConAffixRewards.PartFamily.TOOL_HEAD,
-            AffixOrigin.OTHERSIDE to TConAffixRewards.PartFamily.RANGED
+            AffixOrigin.AETHER to TConAffixRewards.PartFamily.BOW
         )
         cases.forEachIndexed { originIndex, (origin, family) ->
             repeat(100) { sample ->
@@ -207,7 +205,7 @@ class TConAffixRewardsTest {
     fun physicalOriginRejectsCrossFontPartMaterialCombinations() {
         assertEquals(AffixOrigin.NETHER, AffixOrigins.physicalOrigin("tinkersweaponry:great_blade", "tconstruct:manyullyn"))
         assertEquals(AffixOrigin.AETHER, AffixOrigins.physicalOrigin("tconstruct:small_blade", "tinkers_construct_affixes:zanite"))
-        assertEquals(AffixOrigin.UNDERGARDEN, AffixOrigins.physicalOrigin("additionalweaponry:defensive_handle", "tinkers_construct_affixes:cloggrum"))
+        assertEquals(AffixOrigin.GLOBAL, AffixOrigins.physicalOrigin("additionalweaponry:defensive_handle", "tinkers_construct_affixes:cloggrum"))
         assertEquals(AffixOrigin.GLOBAL, AffixOrigins.physicalOrigin("tinker_rapier:slender_blade", "tconstruct:manyullyn"))
     }
 

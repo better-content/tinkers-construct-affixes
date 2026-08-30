@@ -4,7 +4,7 @@ Forge 1.20.1 mod that turns Tinkers' Construct parts into a global, long-term lo
 
 Affixed parts can drop from player-killed hostile mobs and appear in chest loot caches. Each reward has a compatible Tinkers material, rolled from configurable weighted tiers; tier 4 remains a deliberately rare jackpot. Tier weights are renormalized across the tiers that actually contain materials compatible with the selected part and physical origin, so a valid cache cannot randomly fail because an incompatible tier was selected. Percentage rolls persist through Tinkers stat rebuilds, and modifier grants are tracked separately from ordinary player-applied modifier levels.
 
-The Nether, Aether, Undergarden, and Otherside act as distinct "Fonts" with themed materials, part pools, guaranteed regional affixes, and better 2–6-affix rolls. Physical part/material provenance wins over stored metadata, so moving or editing NBT cannot turn a global item into a Font reward.
+The Nether and Aether act as distinct "Fonts" with themed materials, part pools, guaranteed regional affixes, and better 2–6-affix rolls. Physical part/material provenance wins over stored metadata, so moving or editing NBT cannot turn a global item into a Font reward.
 
 Six currencies support an inventory-native crafting loop:
 
@@ -18,7 +18,7 @@ Master toolsmiths sell the two preservation seals. Fluxes, seals, caches, and af
 
 ## Material behavior
 
-Tinkers remains the sole causal authority for material behavior. Each owned material has native part statistics and defining traits; this repository does not assign Systemic Salience aspects or profile tooltips to materials. In particular, Froststeel is a cold defensive material, Gravitite is forceful displacement with an accuracy cost, Skyroot is quick but fragile, and Ambrosium, Regalium, and Reinforced Echo no longer share blank behaviour.
+Tinkers remains the sole causal authority for material behavior. Each owned material has native part statistics and defining traits; this repository does not assign Systemic Salience aspects or profile tooltips to materials. In particular, Froststeel is a cold defensive material, Gravitite is forceful displacement with an accuracy cost, and Skyroot is quick but fragile.
 
 Affix rewards deliberately exclude inert material definitions and materials or modifier grants that teleport the player, hover, reduce gravity, add jumps, or otherwise bypass traversal. Grounded guard, target displacement, projectile, and status behaviours remain valid.
 

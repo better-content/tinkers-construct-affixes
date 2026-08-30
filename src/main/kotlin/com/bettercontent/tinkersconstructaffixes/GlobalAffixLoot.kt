@@ -13,10 +13,13 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 
 object GlobalAffixLoot {
+    private val noRewardDimensions = setOf("the_bumblezone:the_bumblezone", "rats:ratlantis")
+
     @SubscribeEvent
     fun onLivingDrops(event: LivingDropsEvent) {
         val level = event.entity.level()
         if (level.isClientSide || event.entity !is Mob || event.entity.type.category != net.minecraft.world.entity.MobCategory.MONSTER) return
+        if (level.dimension().location().toString() in noRewardDimensions) return
         val killer = event.source.entity as? ServerPlayer ?: return
         val origin = AffixOrigins.fromDimension(level.dimension().location())
         val partChance = if (origin == AffixOrigin.GLOBAL) TConAffixConfig.hostileDropChance() else TConAffixConfig.fontDropChance()
