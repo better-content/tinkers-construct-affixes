@@ -17,9 +17,11 @@ object TConAffixValidation {
     private val logger = LogUtils.getLogger()
 
     @SubscribeEvent
+    @Suppress("UNUSED_PARAMETER")
     fun onMaterialsLoaded(event: MaterialsLoadedEvent) = validateMaterials()
 
     @SubscribeEvent
+    @Suppress("UNUSED_PARAMETER")
     fun onModifiersLoaded(event: ModifierManager.ModifiersLoadedEvent) = validateModifiers()
 
     fun onConfigLoading(event: ModConfigEvent.Loading) = validateAfterConfigChange(event)
@@ -35,6 +37,7 @@ object TConAffixValidation {
     private fun validateMaterials() {
         val registry = MaterialRegistry.getInstance()
         var errors = 0
+        var unavailableOptionalEntries = 0
         val origins = listOf(AffixOrigin.GLOBAL, AffixOrigin.NETHER, AffixOrigin.AETHER)
         origins.forEach { origin ->
             for (tier in 1..4) {
@@ -49,8 +52,8 @@ object TConAffixValidation {
                     val declaredTier = material.tier.coerceAtLeast(1)
                     when {
                         material == IMaterial.UNKNOWN -> {
-                            logger.error("Tinkers Construct Affixes {} tier {} material {} is not loaded", origin.id, tier, id)
-                            errors++
+                            logger.debug("Tinkers Construct Affixes {} tier {} optional material {} is not loaded; it will be excluded", origin.id, tier, id)
+                            unavailableOptionalEntries++
                         }
                         material.isHidden -> {
                             logger.error("Tinkers Construct Affixes {} tier {} material {} is hidden", origin.id, tier, id)
@@ -74,17 +77,18 @@ object TConAffixValidation {
                     val id = ResourceLocation.tryParse(profile.itemId)
                     val part = id?.let { ForgeRegistries.ITEMS.getValue(it) } as? ToolPartItem
                     if (part == null) {
-                        if (exclusive) {
-                            logger.warn(
-                                "Tinkers Construct Affixes {} exclusive pool part {} is unavailable; rolls will use the themed fallback pool",
-                                origin.id, profile.itemId
-                            )
-                        } else {
+                        if (id?.namespace == "tconstruct") {
                             logger.error(
                                 "Tinkers Construct Affixes {} themed pool part {} is missing or is not a ToolPartItem",
                                 origin.id, profile.itemId
                             )
                             errors++
+                        } else {
+                            logger.debug(
+                                "Tinkers Construct Affixes {} optional pool part {} is unavailable; it will be excluded",
+                                origin.id, profile.itemId
+                            )
+                            unavailableOptionalEntries++
                         }
                         return@profileLoop
                     }
@@ -108,7 +112,7 @@ object TConAffixValidation {
                 }
                 if (profiles.isNotEmpty() && viableProfiles == 0) {
                     if (exclusive) {
-                        logger.warn("Tinkers Construct Affixes {} exclusive part pool has no viable reward profile; rolls will use the themed fallback pool", origin.id)
+                        logger.debug("Tinkers Construct Affixes {} optional exclusive part pool is unavailable; rolls will use the themed fallback pool", origin.id)
                     } else {
                         logger.error("Tinkers Construct Affixes {} themed part pool has no viable reward profile", origin.id)
                         errors++
@@ -116,7 +120,10 @@ object TConAffixValidation {
                 }
             }
         }
-        if (errors == 0) logger.info("Tinkers Construct Affixes validated {} part profiles across {} physical origin pools", TConAffixRewards.allPartProfiles.size, origins.size)
+        if (errors == 0) logger.info(
+            "Tinkers Construct Affixes validated {} part profiles across {} physical origin pools; {} unavailable optional entries were excluded",
+            TConAffixRewards.allPartProfiles.size, origins.size, unavailableOptionalEntries
+        )
         else logger.error("Tinkers Construct Affixes material validation found {} error(s); invalid rewards will fail closed", errors)
     }
 

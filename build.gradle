@@ -46,3 +46,11 @@ tasks.named('headlessGameTest').configure {
         }
     }
 }
+
+tasks.register('resetGameTestWorld', Delete) {
+    delete layout.projectDirectory.dir('run-gametest/world')
+}
+
+tasks.matching { it.name.startsWith('prepareRunGameTestServer') }.configureEach {
+    dependsOn tasks.named('resetGameTestWorld')
+}
